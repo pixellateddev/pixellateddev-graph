@@ -3,5 +3,12 @@
 
 
 type Query {
-  ok: Boolean!
+  getUser(id: String!): User
+  listUsers: [User]!
+}
+
+type User {
+  email: String!
+  id: String!
+  username: String
 }

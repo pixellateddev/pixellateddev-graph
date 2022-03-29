@@ -4,7 +4,7 @@
  */
 
 
-
+import type { Context } from "./context"
 
 
 
@@ -29,6 +29,11 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Query: {};
+  User: { // root type
+    email: string; // String!
+    id: string; // String!
+    username?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -43,17 +48,34 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Query: { // field return type
-    ok: boolean; // Boolean!
+    getUser: NexusGenRootTypes['User'] | null; // User
+    listUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
+  }
+  User: { // field return type
+    email: string; // String!
+    id: string; // String!
+    username: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
   Query: { // field return type name
-    ok: 'Boolean'
+    getUser: 'User'
+    listUsers: 'User'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'String'
+    username: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Query: {
+    getUser: { // args
+      id: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -87,7 +109,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;
