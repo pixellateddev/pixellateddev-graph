@@ -2,7 +2,18 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  token: String!
+  tokenType: String!
+}
+
+type Mutation {
+  login(email: String!, password: String!): AuthPayload!
+  signup(email: String!, password: String!): AuthPayload!
+}
+
 type Query {
+  getMe: User
   getUser(id: String!): User
   listUsers: [User]!
 }

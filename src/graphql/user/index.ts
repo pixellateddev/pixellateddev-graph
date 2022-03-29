@@ -21,5 +21,15 @@ export const UserQuery = extendType({
                 return await context.prisma.user.findUnique({where: { id }})
             }
         })
+
+        t.field('getMe', {
+            type: 'User',
+            async resolve(_, __ , {prisma, userId }) {
+                if (!userId) {
+                    throw new Error('not authorized')
+                }
+                return await prisma.user.findUnique({where: { id: userId }})
+            }
+        })
     }
 })
