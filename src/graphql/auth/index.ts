@@ -1,7 +1,7 @@
 export * from './types'
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-import { extendType, nonNull, objectType, stringArg } from 'nexus';
+import { extendType, nonNull, stringArg } from 'nexus';
 
 import { APP_SECRET } from '../../utils/auth';
 

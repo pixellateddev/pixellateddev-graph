@@ -14,9 +14,9 @@ type Mutation {
 }
 
 type Query {
-  getMe: User
-  getUser(id: String!): User
-  listUsers: [User]!
+  me: User
+  user(id: String!): User
+  users: [User]!
 }
 
 type User {

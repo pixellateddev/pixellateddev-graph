@@ -1,34 +1,36 @@
 import { extendType, nonNull, stringArg } from 'nexus';
+import { allow } from 'nexus-shield';
+
+import { isAuthenticated } from '../../rules';
 
 export * from './types'
 
 export const UserQuery = extendType({
     type: 'Query',
     definition(t) {
-        t.nonNull.list.field('listUsers', {
+        t.nonNull.list.field('users', {
             type: 'User',
-            async resolve(parent, args, context) {
-                return await context.prisma.user.findMany({})
+            async resolve(_, __, { prisma }) {
+                return await prisma.user.findMany({})
             }
         })
 
-        t.field('getUser', {
+        t.field('user', {
+            shield: isAuthenticated(),
             type: 'User',
             args: {
                 id: nonNull(stringArg())
             },
-            async resolve(_, { id }, context) {
-                return await context.prisma.user.findUnique({where: { id }})
+            async resolve(_, { id }, { prisma }) {
+                return await prisma.user.findUnique({where: { id }})
             }
         })
 
-        t.field('getMe', {
+        t.field('me', {
+            shield: isAuthenticated(),
             type: 'User',
-            async resolve(_, __ , {prisma, userId }) {
-                if (!userId) {
-                    throw new Error('not authorized')
-                }
-                return await prisma.user.findUnique({where: { id: userId }})
+            async resolve(_, __ , { user }) {
+                return user
             }
         })
     }

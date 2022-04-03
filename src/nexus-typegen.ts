@@ -5,6 +5,7 @@
 
 
 import type { Context } from "./context"
+import type { FieldShieldResolver, ObjectTypeShieldResolver } from "nexus-shield"
 
 
 
@@ -63,9 +64,9 @@ export interface NexusGenFieldTypes {
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   Query: { // field return type
-    getMe: NexusGenRootTypes['User'] | null; // User
-    getUser: NexusGenRootTypes['User'] | null; // User
-    listUsers: Array<NexusGenRootTypes['User'] | null>; // [User]!
+    me: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User'] | null; // User
+    users: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
   User: { // field return type
     email: string; // String!
@@ -85,9 +86,9 @@ export interface NexusGenFieldTypeNames {
     signup: 'AuthPayload'
   }
   Query: { // field return type name
-    getMe: 'User'
-    getUser: 'User'
-    listUsers: 'User'
+    me: 'User'
+    user: 'User'
+    users: 'User'
   }
   User: { // field return type name
     email: 'String'
@@ -108,7 +109,7 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    getUser: { // args
+    user: { // args
       id: string; // String!
     }
   }
@@ -173,10 +174,18 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+    /**
+     * Default authorization rule to execute on all fields of this object
+     */
+    shield?: ObjectTypeShieldResolver<TypeName>
   }
   interface NexusGenPluginInputTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    /**
+     * Authorization rule to execute for this field
+     */
+    shield?: FieldShieldResolver<TypeName, FieldName>
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
   }

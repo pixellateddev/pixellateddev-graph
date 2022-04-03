@@ -946,6 +946,13 @@ negotiator@0.6.3:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
+nexus-shield@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/nexus-shield/-/nexus-shield-2.1.0.tgz#9842b181ed50dcc3700375229ac1cf3881e05770"
+  integrity sha512-jJewbf1XcCMfipnH0CcAmEPIwWtUwAVJ7G5e3Z89uMaOH4HXAvKOJdsFDPzAuPu7PWgRfhwStdXHb8oy7ZJlBg==
+  dependencies:
+    object-hash "^2.0.3"
+
 nexus@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/nexus/-/nexus-1.3.0.tgz#d7e2671d48bf887e30e2815f509bbf4b0ee2a02b"
@@ -970,6 +977,11 @@ object-assign@^4:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
+
+object-hash@^2.0.3:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/object-hash/-/object-hash-2.2.0.tgz#5ad518581eefc443bd763472b8ff2e9c2c0d54a5"
+  integrity sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==
 
 on-finished@~2.3.0:
   version "2.3.0"
