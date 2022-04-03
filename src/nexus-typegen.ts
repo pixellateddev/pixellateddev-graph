@@ -36,6 +36,11 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  Resume: { // root type
+    id: string; // String!
+    title: string; // String!
+    userId: string; // String!
+  }
   User: { // root type
     email: string; // String!
     id: string; // String!
@@ -60,13 +65,20 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
+    createResume: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   Query: { // field return type
     me: NexusGenRootTypes['User'] | null; // User
+    resumes: NexusGenRootTypes['Resume'][]; // [Resume!]!
     user: NexusGenRootTypes['User'] | null; // User
     users: Array<NexusGenRootTypes['User'] | null>; // [User]!
+  }
+  Resume: { // field return type
+    id: string; // String!
+    title: string; // String!
+    userId: string; // String!
   }
   User: { // field return type
     email: string; // String!
@@ -82,13 +94,20 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
   }
   Mutation: { // field return type name
+    createResume: 'Resume'
     login: 'AuthPayload'
     signup: 'AuthPayload'
   }
   Query: { // field return type name
     me: 'User'
+    resumes: 'Resume'
     user: 'User'
     users: 'User'
+  }
+  Resume: { // field return type name
+    id: 'String'
+    title: 'String'
+    userId: 'String'
   }
   User: { // field return type name
     email: 'String'
@@ -99,6 +118,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createResume: { // args
+      title: string; // String!
+    }
     login: { // args
       email: string; // String!
       password: string; // String!

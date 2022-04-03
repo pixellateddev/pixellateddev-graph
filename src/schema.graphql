@@ -9,14 +9,22 @@ type AuthPayload {
 }
 
 type Mutation {
+  createResume(title: String!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
 }
 
 type Query {
   me: User
+  resumes: [Resume!]!
   user(id: String!): User
   users: [User]!
+}
+
+type Resume {
+  id: String!
+  title: String!
+  userId: String!
 }
 
 type User {
