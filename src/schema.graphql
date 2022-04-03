@@ -5,6 +5,7 @@
 type AuthPayload {
   token: String!
   tokenType: String!
+  user: User!
 }
 
 type Mutation {

@@ -5,14 +5,6 @@ import { extendType, nonNull, objectType, stringArg } from 'nexus';
 
 import { APP_SECRET } from '../../utils/auth';
 
-export const AuthPayload = objectType({
-    name: 'AuthPayload',
-    definition(t) {
-        t.nonNull.string('token')
-        t.nonNull.string('tokenType')
-    }
-})
-
 export const AuthMutation = extendType({
     type: 'Mutation',
     definition(t) {
@@ -22,7 +14,7 @@ export const AuthMutation = extendType({
                 email: nonNull(stringArg()),
                 password: nonNull(stringArg())
             },
-            async resolve(parent, args, context) {
+            async resolve(_, args, context) {
                 const { email, password } = args
                 const hashedPassword = await bcrypt.hash(password, 10)
 
@@ -36,7 +28,8 @@ export const AuthMutation = extendType({
 
                 return {
                     token,
-                    tokenType: 'bearer'
+                    tokenType: 'bearer',
+                    user
                 }
             }
         })
@@ -47,7 +40,7 @@ export const AuthMutation = extendType({
                 email: nonNull(stringArg()),
                 password: nonNull(stringArg())
             },
-            async resolve(parent, args, context) {
+            async resolve(_, args, context) {
                 const user = await context.prisma.user.findUnique({
                     where: { email: args.email }
                 })
@@ -65,7 +58,8 @@ export const AuthMutation = extendType({
                 
                 return {
                     token,
-                    tokenType: 'bearer'
+                    tokenType: 'bearer',
+                    user
                 }
             }
         })
