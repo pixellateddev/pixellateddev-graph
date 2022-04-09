@@ -10,12 +10,28 @@ type AuthPayload {
 
 type Mutation {
   createResume(title: String!): Resume!
+  editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
 }
 
+type PersonalDetails {
+  email: String!
+  fullName: String!
+  location: String!
+  phoneNumber: String!
+}
+
+input PersonalDetailsInput {
+  email: String!
+  fullName: String!
+  location: String!
+  phoneNumber: String!
+}
+
 type Query {
   me: User
+  resume(resumeId: ID!): Resume
   resumes: [Resume!]!
   user(id: String!): User
   users: [User]!
@@ -23,6 +39,7 @@ type Query {
 
 type Resume {
   id: String!
+  personalDetails: PersonalDetails
   title: String!
   userId: String!
 }

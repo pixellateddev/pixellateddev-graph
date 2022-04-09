@@ -15,6 +15,12 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  PersonalDetailsInput: { // input type
+    email: string; // String!
+    fullName: string; // String!
+    location: string; // String!
+    phoneNumber: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -35,9 +41,16 @@ export interface NexusGenObjects {
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: {};
+  PersonalDetails: { // root type
+    email: string; // String!
+    fullName: string; // String!
+    location: string; // String!
+    phoneNumber: string; // String!
+  }
   Query: {};
   Resume: { // root type
     id: string; // String!
+    personalDetails?: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
     userId: string; // String!
   }
@@ -66,17 +79,26 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     createResume: NexusGenRootTypes['Resume']; // Resume!
+    editPersonalDetails: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
+  PersonalDetails: { // field return type
+    email: string; // String!
+    fullName: string; // String!
+    location: string; // String!
+    phoneNumber: string; // String!
+  }
   Query: { // field return type
     me: NexusGenRootTypes['User'] | null; // User
+    resume: NexusGenRootTypes['Resume'] | null; // Resume
     resumes: NexusGenRootTypes['Resume'][]; // [Resume!]!
     user: NexusGenRootTypes['User'] | null; // User
     users: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
   Resume: { // field return type
     id: string; // String!
+    personalDetails: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
     userId: string; // String!
   }
@@ -95,17 +117,26 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     createResume: 'Resume'
+    editPersonalDetails: 'Resume'
     login: 'AuthPayload'
     signup: 'AuthPayload'
   }
+  PersonalDetails: { // field return type name
+    email: 'String'
+    fullName: 'String'
+    location: 'String'
+    phoneNumber: 'String'
+  }
   Query: { // field return type name
     me: 'User'
+    resume: 'Resume'
     resumes: 'Resume'
     user: 'User'
     users: 'User'
   }
   Resume: { // field return type name
     id: 'String'
+    personalDetails: 'PersonalDetails'
     title: 'String'
     userId: 'String'
   }
@@ -121,6 +152,10 @@ export interface NexusGenArgTypes {
     createResume: { // args
       title: string; // String!
     }
+    editPersonalDetails: { // args
+      personalDetails: NexusGenInputs['PersonalDetailsInput']; // PersonalDetailsInput!
+      resumeId: string; // ID!
+    }
     login: { // args
       email: string; // String!
       password: string; // String!
@@ -131,6 +166,9 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    resume: { // args
+      resumeId: string; // ID!
+    }
     user: { // args
       id: string; // String!
     }
@@ -145,7 +183,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

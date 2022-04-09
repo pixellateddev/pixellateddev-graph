@@ -24,11 +24,22 @@ model Resume {
   userId                String            @db.ObjectId
   title                 String
   // layout                Layout
-  // personalDetails       PersonalDetails
+  personalDetails       PersonalDetails?
   // skills                Skill[]
   // workExperience        Job[]
   // educationDetails      Course[]
 
-  @@unique([userId, title], map: "User and Resume should be unique")
+  @@unique([userId, title], map: "Resume title should be unique")
   @@index([title])
+}
+
+type PersonalDetails {
+  fullName              String
+  jobRole               String?
+  email                 String
+  location              String
+  phoneNumber           String
+  website               String?
+  github                String?
+  linkedin              String?
 }
