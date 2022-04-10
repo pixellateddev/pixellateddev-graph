@@ -52,6 +52,11 @@ export interface NexusGenObjects {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Info: { // root type
+    code: number; // Int!
+    message: string; // String!
+    status: string; // String!
+  }
   Job: { // root type
     currentlyWorking: boolean; // Boolean!
     description?: string | null; // String
@@ -103,6 +108,11 @@ export interface NexusGenFieldTypes {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Info: { // field return type
+    code: number; // Int!
+    message: string; // String!
+    status: string; // String!
+  }
   Job: { // field return type
     currentlyWorking: boolean; // Boolean!
     description: string | null; // String
@@ -116,6 +126,7 @@ export interface NexusGenFieldTypes {
     addJobExperience: NexusGenRootTypes['Resume']; // Resume!
     createResume: NexusGenRootTypes['Resume']; // Resume!
     deleteJobExperience: NexusGenRootTypes['Resume']; // Resume!
+    deleteResume: NexusGenRootTypes['Info']; // Info!
     editPersonalDetails: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
@@ -158,6 +169,11 @@ export interface NexusGenFieldTypeNames {
     tokenType: 'String'
     user: 'User'
   }
+  Info: { // field return type name
+    code: 'Int'
+    message: 'String'
+    status: 'String'
+  }
   Job: { // field return type name
     currentlyWorking: 'Boolean'
     description: 'String'
@@ -171,6 +187,7 @@ export interface NexusGenFieldTypeNames {
     addJobExperience: 'Resume'
     createResume: 'Resume'
     deleteJobExperience: 'Resume'
+    deleteResume: 'Info'
     editPersonalDetails: 'Resume'
     login: 'AuthPayload'
     signup: 'AuthPayload'
@@ -218,6 +235,9 @@ export interface NexusGenArgTypes {
     }
     deleteJobExperience: { // args
       jobId: string; // ID!
+      resumeId: string; // ID!
+    }
+    deleteResume: { // args
       resumeId: string; // ID!
     }
     editPersonalDetails: { // args

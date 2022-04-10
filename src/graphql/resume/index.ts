@@ -52,6 +52,22 @@ export const ResumeMutation = extendType({
             }
         })
 
+        t.nonNull.field('deleteResume', {
+            shield: isAuthenticated(),
+            type: 'Info',
+            args: {
+                resumeId: nonNull(idArg())
+            },
+            resolve: async (_, { resumeId }, { prisma }) => {
+                await prisma.resume.delete({where: {id: resumeId}})
+                return {
+                    message: 'Successfully Deleted',
+                    code: 204,
+                    status: 'OK'
+                }
+            }
+        })
+
         t.nonNull.field('editPersonalDetails', {
             shield: isAuthenticated(),
             type: 'Resume',
