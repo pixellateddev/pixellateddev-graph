@@ -96,5 +96,45 @@ export const ResumeMutation = extendType({
                 return resume
             }
         })
+
+        t.nonNull.field('updateJobExperience', {
+            type: 'Resume',
+            shield: isAuthenticated(),
+            args: {
+                resumeId: nonNull(idArg()),
+                jobId: nonNull(idArg()),
+                job: nonNull(NewJobInput)
+            },
+            resolve: async ( _, { resumeId, jobId, job }, { prisma }) => {
+                const resume = await prisma.resume.update({
+                    where: { id: resumeId },
+                    data: { workExperience: {
+                        updateMany: {
+                            where: {id: jobId},
+                            data: {
+                                ...job
+                            }
+                        }
+                    }}
+                })
+                return resume
+            }
+        })
+
+        t.nonNull.field('deleteJobExperience', {
+            type: 'Resume',
+            shield: isAuthenticated(),
+            args: {
+                resumeId: nonNull(idArg()),
+                jobId: nonNull(idArg())
+            },
+            resolve: async (_, { resumeId, jobId }, { prisma }) => {
+                const resume = await prisma.resume.update({
+                    where: {id: resumeId},
+                    data: {workExperience: { deleteMany: {where: { id: jobId }}}}
+                })
+                return resume
+            }
+        })
     }
 })

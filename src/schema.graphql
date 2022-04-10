@@ -21,9 +21,11 @@ type Job {
 type Mutation {
   addJobExperience(newJob: NewJobInput!, resumeId: ID!): Resume!
   createResume(title: String!): Resume!
+  deleteJobExperience(jobId: ID!, resumeId: ID!): Resume!
   editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
+  updateJobExperience(job: NewJobInput!, jobId: ID!, resumeId: ID!): Resume!
 }
 
 input NewJobInput {
