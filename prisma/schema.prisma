@@ -35,7 +35,7 @@ model Resume {
 
 type PersonalDetails {
   fullName              String
-  jobRole               String?
+  currentRole           String?
   email                 String
   location              String
   phoneNumber           String

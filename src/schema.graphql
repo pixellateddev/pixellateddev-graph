@@ -16,17 +16,25 @@ type Mutation {
 }
 
 type PersonalDetails {
+  currentRole: String
   email: String!
   fullName: String!
+  github: String
+  linkedin: String
   location: String!
   phoneNumber: String!
+  website: String
 }
 
 input PersonalDetailsInput {
+  currentRole: String
   email: String!
   fullName: String!
+  github: String
+  linkedin: String
   location: String!
   phoneNumber: String!
+  website: String
 }
 
 type Query {

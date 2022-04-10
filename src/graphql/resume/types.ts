@@ -18,6 +18,10 @@ const personalDetailsSchema = (t: any) => {
     t.nonNull.string('location')
     t.nonNull.string('phoneNumber')
     t.nonNull.string('email')
+    t.string('currentRole')
+    t.string('website')
+    t.string('github')
+    t.string('linkedin')
 }
 
 export const PersonalDetails = objectType({

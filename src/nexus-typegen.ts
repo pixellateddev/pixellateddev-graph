@@ -16,10 +16,14 @@ declare global {
 
 export interface NexusGenInputs {
   PersonalDetailsInput: { // input type
+    currentRole?: string | null; // String
     email: string; // String!
     fullName: string; // String!
+    github?: string | null; // String
+    linkedin?: string | null; // String
     location: string; // String!
     phoneNumber: string; // String!
+    website?: string | null; // String
   }
 }
 
@@ -42,10 +46,14 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   PersonalDetails: { // root type
+    currentRole?: string | null; // String
     email: string; // String!
     fullName: string; // String!
+    github?: string | null; // String
+    linkedin?: string | null; // String
     location: string; // String!
     phoneNumber: string; // String!
+    website?: string | null; // String
   }
   Query: {};
   Resume: { // root type
@@ -84,10 +92,14 @@ export interface NexusGenFieldTypes {
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   PersonalDetails: { // field return type
+    currentRole: string | null; // String
     email: string; // String!
     fullName: string; // String!
+    github: string | null; // String
+    linkedin: string | null; // String
     location: string; // String!
     phoneNumber: string; // String!
+    website: string | null; // String
   }
   Query: { // field return type
     me: NexusGenRootTypes['User'] | null; // User
@@ -122,10 +134,14 @@ export interface NexusGenFieldTypeNames {
     signup: 'AuthPayload'
   }
   PersonalDetails: { // field return type name
+    currentRole: 'String'
     email: 'String'
     fullName: 'String'
+    github: 'String'
+    linkedin: 'String'
     location: 'String'
     phoneNumber: 'String'
+    website: 'String'
   }
   Query: { // field return type name
     me: 'User'

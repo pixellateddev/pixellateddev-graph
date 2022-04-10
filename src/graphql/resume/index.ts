@@ -1,7 +1,5 @@
 import { extendType, idArg, nonNull, stringArg } from 'nexus';
 
-import { prisma } from '@prisma/client';
-
 import { isAuthenticated } from '../../rules';
 import { PersonalDetailsInput } from './types';
 
@@ -61,6 +59,7 @@ export const ResumeMutation = extendType({
                 personalDetails: nonNull(PersonalDetailsInput)
             },
             resolve: async (_, { resumeId, personalDetails }, {prisma, user}) => {
+                console.log(personalDetails)
                 const resume = await prisma.resume.update({
                     where: {
                         id: resumeId
