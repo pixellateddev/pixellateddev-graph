@@ -1,7 +1,8 @@
+import { ObjectId } from 'bson';
 import { extendType, idArg, nonNull, stringArg } from 'nexus';
 
 import { isAuthenticated } from '../../rules';
-import { PersonalDetailsInput } from './types';
+import { NewJobInput, PersonalDetailsInput } from './types';
 
 export * from './types'
 
@@ -58,7 +59,7 @@ export const ResumeMutation = extendType({
                 resumeId: nonNull(idArg()),
                 personalDetails: nonNull(PersonalDetailsInput)
             },
-            resolve: async (_, { resumeId, personalDetails }, {prisma, user}) => {
+            resolve: async (_, { resumeId, personalDetails }, {prisma}) => {
                 console.log(personalDetails)
                 const resume = await prisma.resume.update({
                     where: {
@@ -68,6 +69,30 @@ export const ResumeMutation = extendType({
                         personalDetails
                     }
                 })
+                return resume
+            }
+        })
+
+        t.nonNull.field('addJobExperience', {
+            shield: isAuthenticated(),
+            type: 'Resume',
+            args: {
+                resumeId: nonNull(idArg()),
+                newJob: nonNull(NewJobInput)
+            },
+            resolve: async ( _, { resumeId, newJob }, { prisma}) => {               
+                const job = {
+                    ...newJob,
+                    id: new ObjectId().toString()
+                }
+
+                const resume = await prisma.resume.update({
+                    where: { id: resumeId },
+                    data: { workExperience: {
+                        push: job
+                    }}
+                })
+
                 return resume
             }
         })

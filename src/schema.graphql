@@ -8,11 +8,31 @@ type AuthPayload {
   user: User!
 }
 
+type Job {
+  currentlyWorking: Boolean!
+  description: String
+  endDate: String
+  id: ID!
+  orgName: String!
+  role: String!
+  startDate: String!
+}
+
 type Mutation {
+  addJobExperience(newJob: NewJobInput!, resumeId: ID!): Resume!
   createResume(title: String!): Resume!
   editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
+}
+
+input NewJobInput {
+  currentlyWorking: Boolean!
+  description: String
+  endDate: String
+  orgName: String!
+  role: String!
+  startDate: String!
 }
 
 type PersonalDetails {
@@ -46,10 +66,11 @@ type Query {
 }
 
 type Resume {
-  id: String!
+  id: ID!
   personalDetails: PersonalDetails
   title: String!
   userId: String!
+  workExperience: [Job!]
 }
 
 type User {

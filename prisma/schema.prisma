@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongoDb"]
+  // previewFeatures = ["mongoDb"]
 }
 
 datasource db {
@@ -26,7 +26,7 @@ model Resume {
   // layout                Layout
   personalDetails       PersonalDetails?
   // skills                Skill[]
-  // workExperience        Job[]
+  workExperience        Job[]
   // educationDetails      Course[]
 
   @@unique([userId, title], map: "Resume title should be unique")
@@ -42,4 +42,14 @@ type PersonalDetails {
   website               String?
   github                String?
   linkedin              String?
+}
+
+type Job {
+  id                    String                @db.ObjectId
+  role                  String
+  orgName               String
+  startDate             String
+  endDate               String?
+  currentlyWorking      Boolean               @default(false)
+  description           String?
 }

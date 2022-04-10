@@ -15,6 +15,14 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  NewJobInput: { // input type
+    currentlyWorking: boolean; // Boolean!
+    description?: string | null; // String
+    endDate?: string | null; // String
+    orgName: string; // String!
+    role: string; // String!
+    startDate: string; // String!
+  }
   PersonalDetailsInput: { // input type
     currentRole?: string | null; // String
     email: string; // String!
@@ -44,6 +52,15 @@ export interface NexusGenObjects {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Job: { // root type
+    currentlyWorking: boolean; // Boolean!
+    description?: string | null; // String
+    endDate?: string | null; // String
+    id: string; // ID!
+    orgName: string; // String!
+    role: string; // String!
+    startDate: string; // String!
+  }
   Mutation: {};
   PersonalDetails: { // root type
     currentRole?: string | null; // String
@@ -57,10 +74,11 @@ export interface NexusGenObjects {
   }
   Query: {};
   Resume: { // root type
-    id: string; // String!
+    id: string; // ID!
     personalDetails?: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
     userId: string; // String!
+    workExperience?: NexusGenRootTypes['Job'][] | null; // [Job!]
   }
   User: { // root type
     email: string; // String!
@@ -85,7 +103,17 @@ export interface NexusGenFieldTypes {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Job: { // field return type
+    currentlyWorking: boolean; // Boolean!
+    description: string | null; // String
+    endDate: string | null; // String
+    id: string; // ID!
+    orgName: string; // String!
+    role: string; // String!
+    startDate: string; // String!
+  }
   Mutation: { // field return type
+    addJobExperience: NexusGenRootTypes['Resume']; // Resume!
     createResume: NexusGenRootTypes['Resume']; // Resume!
     editPersonalDetails: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
@@ -109,10 +137,11 @@ export interface NexusGenFieldTypes {
     users: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
   Resume: { // field return type
-    id: string; // String!
+    id: string; // ID!
     personalDetails: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
     userId: string; // String!
+    workExperience: NexusGenRootTypes['Job'][] | null; // [Job!]
   }
   User: { // field return type
     email: string; // String!
@@ -127,7 +156,17 @@ export interface NexusGenFieldTypeNames {
     tokenType: 'String'
     user: 'User'
   }
+  Job: { // field return type name
+    currentlyWorking: 'Boolean'
+    description: 'String'
+    endDate: 'String'
+    id: 'ID'
+    orgName: 'String'
+    role: 'String'
+    startDate: 'String'
+  }
   Mutation: { // field return type name
+    addJobExperience: 'Resume'
     createResume: 'Resume'
     editPersonalDetails: 'Resume'
     login: 'AuthPayload'
@@ -151,10 +190,11 @@ export interface NexusGenFieldTypeNames {
     users: 'User'
   }
   Resume: { // field return type name
-    id: 'String'
+    id: 'ID'
     personalDetails: 'PersonalDetails'
     title: 'String'
     userId: 'String'
+    workExperience: 'Job'
   }
   User: { // field return type name
     email: 'String'
@@ -165,6 +205,10 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addJobExperience: { // args
+      newJob: NexusGenInputs['NewJobInput']; // NewJobInput!
+      resumeId: string; // ID!
+    }
     createResume: { // args
       title: string; // String!
     }
