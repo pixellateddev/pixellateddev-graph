@@ -42,6 +42,11 @@ export interface NexusGenInputs {
     phoneNumber: string; // String!
     website?: string | null; // String
   }
+  SkillInput: { // input type
+    description?: string | null; // String
+    proficiency: number; // Int!
+    skill: string; // String!
+  }
 }
 
 export interface NexusGenEnums {
@@ -162,15 +167,18 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     addCourse: NexusGenRootTypes['Resume']; // Resume!
     addJobExperience: NexusGenRootTypes['Resume']; // Resume!
+    addSkill: NexusGenRootTypes['Resume']; // Resume!
     createResume: NexusGenRootTypes['Resume']; // Resume!
     deleteCourse: NexusGenRootTypes['Resume']; // Resume!
     deleteJobExperience: NexusGenRootTypes['Resume']; // Resume!
     deleteResume: NexusGenRootTypes['Info']; // Info!
+    deleteSkill: NexusGenRootTypes['Resume']; // Resume!
     editPersonalDetails: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateCourse: NexusGenRootTypes['Resume']; // Resume!
     updateJobExperience: NexusGenRootTypes['Resume']; // Resume!
+    updateSkill: NexusGenRootTypes['Resume']; // Resume!
   }
   PersonalDetails: { // field return type
     currentRole: string | null; // String
@@ -244,15 +252,18 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     addCourse: 'Resume'
     addJobExperience: 'Resume'
+    addSkill: 'Resume'
     createResume: 'Resume'
     deleteCourse: 'Resume'
     deleteJobExperience: 'Resume'
     deleteResume: 'Info'
+    deleteSkill: 'Resume'
     editPersonalDetails: 'Resume'
     login: 'AuthPayload'
     signup: 'AuthPayload'
     updateCourse: 'Resume'
     updateJobExperience: 'Resume'
+    updateSkill: 'Resume'
   }
   PersonalDetails: { // field return type name
     currentRole: 'String'
@@ -303,6 +314,10 @@ export interface NexusGenArgTypes {
       newJob: NexusGenInputs['JobInput']; // JobInput!
       resumeId: string; // ID!
     }
+    addSkill: { // args
+      resumeId: string; // ID!
+      skill: NexusGenInputs['SkillInput']; // SkillInput!
+    }
     createResume: { // args
       title: string; // String!
     }
@@ -316,6 +331,10 @@ export interface NexusGenArgTypes {
     }
     deleteResume: { // args
       resumeId: string; // ID!
+    }
+    deleteSkill: { // args
+      resumeId: string; // ID!
+      skillId: string; // ID!
     }
     editPersonalDetails: { // args
       personalDetails: NexusGenInputs['PersonalDetailsInput']; // PersonalDetailsInput!
@@ -338,6 +357,11 @@ export interface NexusGenArgTypes {
       job: NexusGenInputs['JobInput']; // JobInput!
       jobId: string; // ID!
       resumeId: string; // ID!
+    }
+    updateSkill: { // args
+      resumeId: string; // ID!
+      skill: NexusGenInputs['SkillInput']; // SkillInput!
+      skillId: string; // ID!
     }
   }
   Query: {

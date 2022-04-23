@@ -57,15 +57,18 @@ input JobInput {
 type Mutation {
   addCourse(course: CourseInput!, resumeId: ID!): Resume!
   addJobExperience(newJob: JobInput!, resumeId: ID!): Resume!
+  addSkill(resumeId: ID!, skill: SkillInput!): Resume!
   createResume(title: String!): Resume!
   deleteCourse(courseId: ID!, resumeId: ID!): Resume!
   deleteJobExperience(jobId: ID!, resumeId: ID!): Resume!
   deleteResume(resumeId: ID!): Info!
+  deleteSkill(resumeId: ID!, skillId: ID!): Resume!
   editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
   updateCourse(course: CourseInput!, courseId: ID!, resumeId: ID!): Resume!
   updateJobExperience(job: JobInput!, jobId: ID!, resumeId: ID!): Resume!
+  updateSkill(resumeId: ID!, skill: SkillInput!, skillId: ID!): Resume!
 }
 
 type PersonalDetails {
@@ -111,6 +114,12 @@ type Resume {
 type Skill {
   description: String
   id: ID!
+  proficiency: Int!
+  skill: String!
+}
+
+input SkillInput {
+  description: String
   proficiency: Int!
   skill: String!
 }
