@@ -26,7 +26,7 @@ model Resume {
   personalDetails       PersonalDetails?
   // skills                Skill[]
   workExperience        Job[]
-  // educationDetails      Course[]
+  educationDetails      Course[]
 
   @@unique([userId, title], map: "Resume title should be unique")
   @@index([title])
@@ -51,4 +51,16 @@ type Job {
   endDate               String?
   currentlyWorking      Boolean               @default(false)
   description           String?
+}
+
+
+type Course {
+  id                    String                @db.ObjectId
+  courseName            String
+  instituteName         String
+  startYear             String
+  endYear               String?
+  location              String?
+  currentlyPersuing     Boolean               @default(false)
+  score                 String
 }

@@ -15,6 +15,15 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  NewCourseInput: { // input type
+    courseName: string; // String!
+    currentlyPersuing: boolean; // Boolean!
+    endYear?: string | null; // String
+    instituteName: string; // String!
+    location?: string | null; // String
+    score: string; // String!
+    startYear: string; // String!
+  }
   NewJobInput: { // input type
     currentlyWorking: boolean; // Boolean!
     description?: string | null; // String
@@ -52,6 +61,16 @@ export interface NexusGenObjects {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Course: { // root type
+    courseName: string; // String!
+    currentlyPersuing: boolean; // Boolean!
+    endYear?: string | null; // String
+    id: string; // ID!
+    instituteName: string; // String!
+    location?: string | null; // String
+    score: string; // String!
+    startYear: string; // String!
+  }
   Info: { // root type
     code: number; // Int!
     message: string; // String!
@@ -79,6 +98,7 @@ export interface NexusGenObjects {
   }
   Query: {};
   Resume: { // root type
+    educationDetails?: NexusGenRootTypes['Course'][] | null; // [Course!]
     id: string; // ID!
     personalDetails?: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
@@ -108,6 +128,16 @@ export interface NexusGenFieldTypes {
     tokenType: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
+  Course: { // field return type
+    courseName: string; // String!
+    currentlyPersuing: boolean; // Boolean!
+    endYear: string | null; // String
+    id: string; // ID!
+    instituteName: string; // String!
+    location: string | null; // String
+    score: string; // String!
+    startYear: string; // String!
+  }
   Info: { // field return type
     code: number; // Int!
     message: string; // String!
@@ -123,13 +153,16 @@ export interface NexusGenFieldTypes {
     startDate: string; // String!
   }
   Mutation: { // field return type
+    addCourse: NexusGenRootTypes['Resume']; // Resume!
     addJobExperience: NexusGenRootTypes['Resume']; // Resume!
     createResume: NexusGenRootTypes['Resume']; // Resume!
+    deleteCourse: NexusGenRootTypes['Resume']; // Resume!
     deleteJobExperience: NexusGenRootTypes['Resume']; // Resume!
     deleteResume: NexusGenRootTypes['Info']; // Info!
     editPersonalDetails: NexusGenRootTypes['Resume']; // Resume!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    updateCourse: NexusGenRootTypes['Resume']; // Resume!
     updateJobExperience: NexusGenRootTypes['Resume']; // Resume!
   }
   PersonalDetails: { // field return type
@@ -150,6 +183,7 @@ export interface NexusGenFieldTypes {
     users: Array<NexusGenRootTypes['User'] | null>; // [User]!
   }
   Resume: { // field return type
+    educationDetails: NexusGenRootTypes['Course'][] | null; // [Course!]
     id: string; // ID!
     personalDetails: NexusGenRootTypes['PersonalDetails'] | null; // PersonalDetails
     title: string; // String!
@@ -169,6 +203,16 @@ export interface NexusGenFieldTypeNames {
     tokenType: 'String'
     user: 'User'
   }
+  Course: { // field return type name
+    courseName: 'String'
+    currentlyPersuing: 'Boolean'
+    endYear: 'String'
+    id: 'ID'
+    instituteName: 'String'
+    location: 'String'
+    score: 'String'
+    startYear: 'String'
+  }
   Info: { // field return type name
     code: 'Int'
     message: 'String'
@@ -184,13 +228,16 @@ export interface NexusGenFieldTypeNames {
     startDate: 'String'
   }
   Mutation: { // field return type name
+    addCourse: 'Resume'
     addJobExperience: 'Resume'
     createResume: 'Resume'
+    deleteCourse: 'Resume'
     deleteJobExperience: 'Resume'
     deleteResume: 'Info'
     editPersonalDetails: 'Resume'
     login: 'AuthPayload'
     signup: 'AuthPayload'
+    updateCourse: 'Resume'
     updateJobExperience: 'Resume'
   }
   PersonalDetails: { // field return type name
@@ -211,6 +258,7 @@ export interface NexusGenFieldTypeNames {
     users: 'User'
   }
   Resume: { // field return type name
+    educationDetails: 'Course'
     id: 'ID'
     personalDetails: 'PersonalDetails'
     title: 'String'
@@ -226,12 +274,20 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    addCourse: { // args
+      course: NexusGenInputs['NewCourseInput']; // NewCourseInput!
+      resumeId: string; // ID!
+    }
     addJobExperience: { // args
       newJob: NexusGenInputs['NewJobInput']; // NewJobInput!
       resumeId: string; // ID!
     }
     createResume: { // args
       title: string; // String!
+    }
+    deleteCourse: { // args
+      courseId: string; // ID!
+      resumeId: string; // ID!
     }
     deleteJobExperience: { // args
       jobId: string; // ID!
@@ -251,6 +307,11 @@ export interface NexusGenArgTypes {
     signup: { // args
       email: string; // String!
       password: string; // String!
+    }
+    updateCourse: { // args
+      course: NexusGenInputs['NewCourseInput']; // NewCourseInput!
+      courseId: string; // ID!
+      resumeId: string; // ID!
     }
     updateJobExperience: { // args
       job: NexusGenInputs['NewJobInput']; // NewJobInput!

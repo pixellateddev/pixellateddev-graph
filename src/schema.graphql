@@ -8,6 +8,17 @@ type AuthPayload {
   user: User!
 }
 
+type Course {
+  courseName: String!
+  currentlyPersuing: Boolean!
+  endYear: String
+  id: ID!
+  instituteName: String!
+  location: String
+  score: String!
+  startYear: String!
+}
+
 type Info {
   code: Int!
   message: String!
@@ -25,14 +36,27 @@ type Job {
 }
 
 type Mutation {
+  addCourse(course: NewCourseInput!, resumeId: ID!): Resume!
   addJobExperience(newJob: NewJobInput!, resumeId: ID!): Resume!
   createResume(title: String!): Resume!
+  deleteCourse(courseId: ID!, resumeId: ID!): Resume!
   deleteJobExperience(jobId: ID!, resumeId: ID!): Resume!
   deleteResume(resumeId: ID!): Info!
   editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
+  updateCourse(course: NewCourseInput!, courseId: ID!, resumeId: ID!): Resume!
   updateJobExperience(job: NewJobInput!, jobId: ID!, resumeId: ID!): Resume!
+}
+
+input NewCourseInput {
+  courseName: String!
+  currentlyPersuing: Boolean!
+  endYear: String
+  instituteName: String!
+  location: String
+  score: String!
+  startYear: String!
 }
 
 input NewJobInput {
@@ -75,6 +99,7 @@ type Query {
 }
 
 type Resume {
+  educationDetails: [Course!]
   id: ID!
   personalDetails: PersonalDetails
   title: String!

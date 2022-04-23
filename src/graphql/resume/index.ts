@@ -2,7 +2,7 @@ import { ObjectId } from 'bson';
 import { extendType, idArg, nonNull, stringArg } from 'nexus';
 
 import { isAuthenticated } from '../../rules';
-import { NewJobInput, PersonalDetailsInput } from './types';
+import { NewCourseInput, NewJobInput, PersonalDetailsInput } from './types';
 
 export * from './types'
 
@@ -148,6 +148,70 @@ export const ResumeMutation = extendType({
                 const resume = await prisma.resume.update({
                     where: {id: resumeId},
                     data: {workExperience: { deleteMany: {where: { id: jobId }}}}
+                })
+                return resume
+            }
+        })
+
+        t.nonNull.field('addCourse', {
+            type: 'Resume',
+            shield: isAuthenticated(),
+            args: {
+                resumeId: nonNull(idArg()),
+                course: nonNull(NewCourseInput)
+            },
+            resolve: async (_, { resumeId, course }, { prisma }) => {
+                const newCourse = {
+                    ...course,
+                    id: new ObjectId().toString()
+                }
+
+                const resume = await prisma.resume.update({
+                    where: {id: resumeId},
+                    data: { educationDetails: {
+                        push: newCourse
+                    }}
+                })
+
+                return resume
+            }
+        })
+
+        t.nonNull.field('updateCourse', {
+            type: 'Resume',
+            shield: isAuthenticated(),
+            args: {
+                resumeId: nonNull(idArg()),
+                courseId: nonNull(idArg()),
+                course: nonNull(NewCourseInput)
+            },
+            resolve: async ( _, { resumeId, courseId, course }, { prisma }) => {
+                const resume = await prisma.resume.update({
+                    where: { id: resumeId },
+                    data: { educationDetails: {
+                        updateMany: {
+                            where: {id: courseId},
+                            data: {
+                                ...course
+                            }
+                        }
+                    }}
+                })
+                return resume
+            }
+        })
+
+        t.nonNull.field('deleteCourse', {
+            type: 'Resume',
+            shield: isAuthenticated(),
+            args: {
+                resumeId: nonNull(idArg()),
+                courseId: nonNull(idArg())
+            },
+            resolve: async (_, { resumeId, courseId }, { prisma }) => {
+                const resume = await prisma.resume.update({
+                    where: {id: resumeId},
+                    data: {educationDetails: { deleteMany: {where: { id: courseId }}}}
                 })
                 return resume
             }
