@@ -24,7 +24,7 @@ model Resume {
   title                 String
   // layout                Layout
   personalDetails       PersonalDetails?
-  // skills                Skill[]
+  skills                Skill[]
   workExperience        Job[]
   educationDetails      Course[]
 
@@ -63,4 +63,11 @@ type Course {
   location              String?
   currentlyPersuing     Boolean               @default(false)
   score                 String
+}
+
+type Skill {
+  id                    String                @db.ObjectId
+  skill                 String
+  proficiency           Int
+  description           String?
 }

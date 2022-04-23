@@ -2,7 +2,7 @@ import { ObjectId } from 'bson';
 import { extendType, idArg, nonNull, stringArg } from 'nexus';
 
 import { isAuthenticated } from '../../rules';
-import { NewCourseInput, NewJobInput, PersonalDetailsInput } from './types';
+import { CourseInput, JobInput, PersonalDetailsInput } from './input';
 
 export * from './types'
 
@@ -94,7 +94,7 @@ export const ResumeMutation = extendType({
             type: 'Resume',
             args: {
                 resumeId: nonNull(idArg()),
-                newJob: nonNull(NewJobInput)
+                newJob: nonNull(JobInput)
             },
             resolve: async ( _, { resumeId, newJob }, { prisma}) => {               
                 const job = {
@@ -119,7 +119,7 @@ export const ResumeMutation = extendType({
             args: {
                 resumeId: nonNull(idArg()),
                 jobId: nonNull(idArg()),
-                job: nonNull(NewJobInput)
+                job: nonNull(JobInput)
             },
             resolve: async ( _, { resumeId, jobId, job }, { prisma }) => {
                 const resume = await prisma.resume.update({
@@ -158,7 +158,7 @@ export const ResumeMutation = extendType({
             shield: isAuthenticated(),
             args: {
                 resumeId: nonNull(idArg()),
-                course: nonNull(NewCourseInput)
+                course: nonNull(CourseInput)
             },
             resolve: async (_, { resumeId, course }, { prisma }) => {
                 const newCourse = {
@@ -183,7 +183,7 @@ export const ResumeMutation = extendType({
             args: {
                 resumeId: nonNull(idArg()),
                 courseId: nonNull(idArg()),
-                course: nonNull(NewCourseInput)
+                course: nonNull(CourseInput)
             },
             resolve: async ( _, { resumeId, courseId, course }, { prisma }) => {
                 const resume = await prisma.resume.update({

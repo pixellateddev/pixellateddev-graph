@@ -19,6 +19,16 @@ type Course {
   startYear: String!
 }
 
+input CourseInput {
+  courseName: String!
+  currentlyPersuing: Boolean!
+  endYear: String
+  instituteName: String!
+  location: String
+  score: String!
+  startYear: String!
+}
+
 type Info {
   code: Int!
   message: String!
@@ -35,9 +45,18 @@ type Job {
   startDate: String!
 }
 
+input JobInput {
+  currentlyWorking: Boolean!
+  description: String
+  endDate: String
+  orgName: String!
+  role: String!
+  startDate: String!
+}
+
 type Mutation {
-  addCourse(course: NewCourseInput!, resumeId: ID!): Resume!
-  addJobExperience(newJob: NewJobInput!, resumeId: ID!): Resume!
+  addCourse(course: CourseInput!, resumeId: ID!): Resume!
+  addJobExperience(newJob: JobInput!, resumeId: ID!): Resume!
   createResume(title: String!): Resume!
   deleteCourse(courseId: ID!, resumeId: ID!): Resume!
   deleteJobExperience(jobId: ID!, resumeId: ID!): Resume!
@@ -45,27 +64,8 @@ type Mutation {
   editPersonalDetails(personalDetails: PersonalDetailsInput!, resumeId: ID!): Resume!
   login(email: String!, password: String!): AuthPayload!
   signup(email: String!, password: String!): AuthPayload!
-  updateCourse(course: NewCourseInput!, courseId: ID!, resumeId: ID!): Resume!
-  updateJobExperience(job: NewJobInput!, jobId: ID!, resumeId: ID!): Resume!
-}
-
-input NewCourseInput {
-  courseName: String!
-  currentlyPersuing: Boolean!
-  endYear: String
-  instituteName: String!
-  location: String
-  score: String!
-  startYear: String!
-}
-
-input NewJobInput {
-  currentlyWorking: Boolean!
-  description: String
-  endDate: String
-  orgName: String!
-  role: String!
-  startDate: String!
+  updateCourse(course: CourseInput!, courseId: ID!, resumeId: ID!): Resume!
+  updateJobExperience(job: JobInput!, jobId: ID!, resumeId: ID!): Resume!
 }
 
 type PersonalDetails {
@@ -102,9 +102,17 @@ type Resume {
   educationDetails: [Course!]
   id: ID!
   personalDetails: PersonalDetails
+  skills: [Skill!]
   title: String!
   userId: String!
   workExperience: [Job!]
+}
+
+type Skill {
+  description: String
+  id: ID!
+  proficiency: Int!
+  skill: String!
 }
 
 type User {
